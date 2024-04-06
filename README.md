@@ -17,7 +17,7 @@ The `packaging-server` REST API is documented by and compatible with OpenAPI. Yo
 
 Intended features include:
 
-### Package Management
+### Package Creation
 
 Formate: packages/<scheme>/<registry>/<package>[/<path>]
 
@@ -26,7 +26,18 @@ Formate: packages/<scheme>/<registry>/<package>[/<path>]
 - PATCH: Update the package with those parameters from an S3 prefix (fails if the package **does not** exist)
 - PUT: Create or update the package with those parameters from an S3 prefix (always succeeds)
 
-### Hash Management
+### Object Management
+
+Simple web interface for managing S3 objects.
+
+Format: objects/s3/<bucket>[/<prefix>]
+
+- GET: List the contents of the bucket or prefix (depending on the parameters)
+- POST: Create a new object with that name (fails if the object **does** exist)
+- PATCH: Update the object with that name (fails if the object **does not** exist)
+- PUT: Create or update the object with that name
+
+### Hash Retrieval
 
 Format: hashes/s3/<bucket>/<prefix>[/]
 
@@ -35,18 +46,8 @@ Format: hashes/s3/<bucket>/<prefix>[/]
   - return list if prefix ends in / (all if a folder, one if a file)
 - POST: Create a new hash for the object in the S3 bucket with the given prefix (if a file)
 
-### Bucket Management
 
-Simple web interface for managing S3 buckets and their contents.
-
-Format: buckets/s3/<bucket>[/<prefix>]
-
-- GET: List the contents of the bucket or prefix (depending on the parameters)
-- POST: Create a new object with that name (fails if the object **does** exist)
-- PATCH: Update the object with that name (fails if the object **does not** exist)
-- PUT: Create or update the object with that name
-
-### Rules for Event Processing
+### Rules for Package-Creation Events
 
 Format: rules/s3/<bucket>/<prefix>
 
@@ -57,4 +58,4 @@ Format: rules/s3/<bucket>/<prefix>
 
 ## Web Interface
 
-In addition to the REST API, `packaging-server` also provides a simple web interface for directly interacting your packages, hashes, and buckets.
+In addition to the REST API, `packaging-server` also provides a simple web interface for humans to manually interact with those resources.
