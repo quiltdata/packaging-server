@@ -15,46 +15,29 @@ While you can run the Docker container anywhere, for production use we recommed 
 
 The `packaging-server` REST API is documented by and compatible with OpenAPI. You can view the API documentation by running the server and visiting the `/docs` endpoint.
 
-Intended features include:
+### Resources
 
-### Package Creation
+The primary resources are:
 
-Formate: packages/<scheme>/<registry>/<package>[/<path>]
+- `packages` for creating and managing packages
+  - Format: packages/s3/"bucket"/"prefix"
+- `objects` for managing S3 objects
+  - Format: objects/s3/"bucket"[/"prefix"]
+- `hashes` for retrieving the hash of an S3 object
+  - Format: hashes/s3/"bucket"/"prefix"[/]
+- `events` for events that trigger package-creation
+  - Format: events/s3/"bucket"/"prefix"
+- `alerts` for sending SNS notifications when packages are created
+  - Format: alerts/s3/"bucket"/"prefix"
+  
+### Verbs
 
-- GET: List the contents of the registry, package, or path (depending on the parameters)
-- POST: Create a new package with those parameters from an S3 prefix (fails if the package **does** exist)
-- PATCH: Update the package with those parameters from an S3 prefix (fails if the package **does not** exist)
-- PUT: Create or update the package with those parameters from an S3 prefix (always succeeds)
+These are the HTTP verbs used by the API:
 
-### Object Management
-
-Simple web interface for managing S3 objects.
-
-Format: objects/s3/<bucket>[/<prefix>]
-
-- GET: List the contents of the bucket or prefix (depending on the parameters)
-- POST: Create a new object with that name (fails if the object **does** exist)
-- PATCH: Update the object with that name (fails if the object **does not** exist)
-- PUT: Create or update the object with that name
-
-### Hash Retrieval
-
-Format: hashes/s3/<bucket>/<prefix>[/]
-
-- GET: Return the hash of the object in the S3 bucket with the given prefix
-  - also returns size, hash-algorithm, and last-modified
-  - return list if prefix ends in / (all if a folder, one if a file)
-- POST: Create a new hash for the object in the S3 bucket with the given prefix (if a file)
-
-
-### Rules for Package-Creation Events
-
-Format: rules/s3/<bucket>/<prefix>
-
-- GET: List the rules for the bucket or prefix (depending on the parameters)
-- POST: Create a new rule for the bucket or prefix
-- PATCH: Update the rule with the given parameters
-- PUT: Create or update the rule with the given parameters (can only have one rule per bucket/prefix)
+- GET: Retrieve information about the collection, or individual resources
+- POST: Create a new resource (error if already exists)
+- PATCH: Update an existing resource (error if does not exist)
+- PUT: Create or update a resource (always succeeds)
 
 ## Web Interface
 
