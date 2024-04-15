@@ -1,0 +1,12 @@
+[package]
+name = "packaging-server"
+edition = "2021"
+version = "0.1.0"
+description = "Quilt packaging server in Rust"
+
+[dependencies]
+poem = "3.0.0"
+poem-openapi = { version = "5.0.0", features = ["url", "swagger-ui"] }
+sqlx = { version = "0.6.0", features = ["runtime-tokio-rustls", "sqlite"] }
+tokio = { version = "1.37.0", features = ["macros", "rt-multi-thread"] }
+tokio-stream = "0.1.15"
