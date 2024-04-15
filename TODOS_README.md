@@ -1,4 +1,6 @@
-# TODOs Example
+# POEM OpenAPI v5 TODOs Example
+
+This is a simple example of a TODOs API using the POEM OpenAPI v5 framework.
 
 ## Setup
 
@@ -20,14 +22,23 @@ sqlx db create
 sqlx migrate run
 ```
 
-### 4. Start the server
+## Usage
+
+
+### 1. Start the server
 
 ```sh
-cargo run
-open http://localhost:3000/ui
+cargo run &
 ```
 
-### 5. POST a todo
+### 2. Open user-facing URLs
+
+```sh
+open http://localhost:3000/ui
+open http://localhost:3000/spec
+```
+
+### 3. POST a todo
 
 ```sh
 curl -X 'POST' \
